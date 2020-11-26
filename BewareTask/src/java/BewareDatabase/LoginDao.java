@@ -5,19 +5,16 @@
  */
 package BewareDatabase;
 
+import BewareBean.Login;
 import java.sql.*;
 import BewareBean.User;
 /**
  *
- * @author Ignatius Dwiki I
+ * @author feral
  */
-public class UserDao {
-    public int register(User user) throws ClassNotFoundException {
-        String query = "INSERT INTO user" +
-            "  (id, name, password, email) VALUES " +
-            " (?, ?, ?, ?);";
-
-        int result = 0;
+public class LoginDao {
+    public boolean validate(Login login) throws ClassNotFoundException {
+        boolean status = false;
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -25,21 +22,20 @@ public class UserDao {
             .getConnection("jdbc:mysql://localhost:3306/bewaretaskasp?useSSL=false", "root", "");
 
             // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getEmail());
+            PreparedStatement preparedStatement = connection
+            .prepareStatement("select * from user where name = ? and password = ? ")) {
+            preparedStatement.setString(1, login.getName());
+            preparedStatement.setString(2, login.getPassword());
 
             System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
-            result = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.executeQuery();
+            status = rs.next();
 
         } catch (SQLException e) {
             // process sql exception
             printSQLException(e);
         }
-        return result;
+        return status;
     }
 
     private void printSQLException(SQLException ex) {
