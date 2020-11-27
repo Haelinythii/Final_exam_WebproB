@@ -86,7 +86,10 @@ public class TaskServlet extends HttpServlet {
         String taskName = request.getParameter("taskname");
         Task task = new Task();
         task.setTaskName(taskName);
-        task.setIdUser((int)session.getAttribute("userID"));
+        
+        int uid = (int)session.getAttribute("userID");
+        
+        task.setIdUser(uid);
 
         try {
             taskDao.addTask(task);

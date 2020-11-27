@@ -3,7 +3,8 @@
     Created on : Nov 27, 2020, 10:51:15 AM
     Author     : Mystery-PC
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +14,18 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     </head>
     <body>
+        <%
+            String uid = request.getParameter("user");
+        %>
+        <sql:setDataSource
+            var="bewaretaskasp"
+            driver="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/bewaretaskasp"
+            user="root" password=""
+        />
+        <sql:query var="taskList"   dataSource="${bewaretaskasp}">
+            SELECT * FROM task WHERE idUser = <%=session.getAttribute("userID")%>;
+        </sql:query>
         <nav class="navbar navbar-expand-md navbar-light shadow-sm navbar-custom">
             
         </nav>
@@ -46,21 +59,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% 
-                        int count = 1;
-                        while (count < 5) {
-
-                    %>
+                    <% int counter = 1;%>
+                    <c:forEach var="data" items="${taskList.rows}">
                     <tr>
-                        <td><%=count%></td>
-                        <td></td>
-                        <td></td>
+                        <td><%=counter%></td>
+                        <td><c:out value="${data.TaskName}" /></td>
+                        <td><c:out value="${data.deadline == null ? '-' : data.deadline}" /></td>
                         <td><a href="#EditTask" class="btn btn-primary">Edit</a><a href="#DeleteTask" class="btn btn-primary ml-1">Delete</a></td>
                     </tr>
-                    <% 
-                            count++;
-                        }
-                    %>
+                    <%counter++;%>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>

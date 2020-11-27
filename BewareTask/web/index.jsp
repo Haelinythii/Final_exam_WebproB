@@ -125,7 +125,7 @@
     </head>
     <body>
         
-        <% if ( session.getAttribute("name")==null) {
+        <% if ( session.getAttribute("username")==null) {
             
         %>
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
