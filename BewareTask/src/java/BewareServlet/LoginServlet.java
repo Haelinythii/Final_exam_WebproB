@@ -36,9 +36,11 @@ public class LoginServlet extends HttpServlet {
         login.setPassword(password);
 
         try {
-            if (loginDao.validate(login)) {
-                //HttpSession session = request.getSession();
-                // session.setAttribute("username",username);
+            int UID = loginDao.validate(login);
+            if (UID != -1) {
+                HttpSession session = request.getSession();
+                session.setAttribute("username", name);
+                session.setAttribute("userID", UID);
                 response.sendRedirect("Mainpage.jsp");
             } else {
                 HttpSession session = request.getSession();

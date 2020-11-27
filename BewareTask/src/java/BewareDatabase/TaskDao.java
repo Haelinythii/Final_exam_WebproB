@@ -5,43 +5,47 @@
  */
 package BewareDatabase;
 
-import BewareBean.Login;
-import java.sql.*;
-import BewareBean.User;
+import BewareBean.Task;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.servlet.http.HttpSession;
+
 /**
  *
- * @author feral
+ * @author Ignatius Dwiki I
  */
-public class LoginDao {
-    public int validate(Login login) throws ClassNotFoundException {
-        boolean status = false;
-        int UserID = -1;
+public class TaskDao {
+    public int addTask(Task task) throws ClassNotFoundException{
+        String query = "INSERT INTO task" +
+            "  (id, taskName, deadline, idUser) VALUES " +
+            " (?, ?, ?, ?);";
+
+        int result = 0;
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         try (Connection connection = DriverManager
             .getConnection("jdbc:mysql://localhost:3306/bewaretaskasp?useSSL=false", "root", "");
 
-            // Step 2:Create a statement using connection object
-            PreparedStatement preparedStatement = connection
-            .prepareStatement("select * from user where name = ? and password = ? ")) {
-            preparedStatement.setString(1, login.getName());
-            preparedStatement.setString(2, login.getPassword());
+            
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, task.getId());
+            preparedStatement.setString(2, task.getTaskName());
+            preparedStatement.setDate(3, task.getDeadline());
+            preparedStatement.setInt(4, task.getIdUser());
 
             System.out.println(preparedStatement);
-            ResultSet rs = preparedStatement.executeQuery();
-            status = rs.next();
             
-            if(status)
-                UserID = rs.getInt(1);
+            result = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            // process sql exception
             printSQLException(e);
         }
-        return UserID;
+        return result;
     }
-
+    
     private void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {

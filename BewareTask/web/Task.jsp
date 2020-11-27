@@ -25,8 +25,8 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <form action="<%=request.getContextPath()%>/login" method="post">
-                            <input type="text" name="name" /><br>
+                        <form action="<%=request.getContextPath()%>/TaskServlet" method="post">
+                            <input type="text" name="taskname" /><br>
                             <input type="submit" name="submit" class="btn btn-success mt-3" id="btnLogin" value="AddTask" />
                         </form>
                     </div>
