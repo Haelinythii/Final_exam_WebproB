@@ -53,8 +53,9 @@
                 <thead style="background-color:#ff8559">
                     <tr>
                         <th>No.</th>
-                        <th>Task</th>
+                        <th>Task name</th>
                         <th>Due Date</th>
+                        <th>Tag(s)</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -65,12 +66,17 @@
                         <td><%=counter%></td>
                         <td><c:out value="${data.TaskName}" /></td>
                         <td><c:out value="${data.deadline == null ? '-' : data.deadline}" /></td>
+                        <<td></td>
                         <td>
+                            <form action="<%=request.getContextPath()%>/EditTag.jsp" method="post">
+                                <input type="text" hidden name="taskid" value="${data.id}" />
+                                <input type="submit" value="Add Tag"/>
+                            </form>
                             <form action="<%=request.getContextPath()%>/EditTask.jsp" method="post">
                                 <input type="text" name="taskid" hidden value="${data.id}" />
                                 <input type="submit" value="Edit"/>
                             </form>
-                                <form action="<%=request.getContextPath()%>/DeleteTaskServlet" method="post">
+                            <form action="<%=request.getContextPath()%>/DeleteTaskServlet" method="post">
                                 <input type="text" name="taskid" hidden value="${data.id}" />
                                 <input type="submit" value="Delete"/>
                             </form>
