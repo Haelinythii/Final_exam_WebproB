@@ -45,6 +45,6 @@ public class TagServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("Tag.jsp");
+        response.sendRedirect("EditTag.jsp");
     }
 }
