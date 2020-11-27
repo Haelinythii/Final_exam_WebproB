@@ -46,6 +46,32 @@ public class TagDao {
         return result;
     }
     
+    public int deleteTag(Tag_task tag_task) throws ClassNotFoundException {
+        String query = "DELETE FROM tag" +
+            " WHERE id = ?;";
+
+        int result = 0;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection connection = DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/bewaretaskasp?useSSL=false", "root", "");
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, tag_task.getTag_id());
+
+            System.out.println(preparedStatement);
+            
+            result = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            // process sql exception
+            printSQLException(e);
+        }
+        return result;
+    }
+    
     public int addTag_task(Tag_task tag_task) throws ClassNotFoundException
     {
         String query = "INSERT INTO tag_task" +
@@ -63,6 +89,33 @@ public class TagDao {
             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, tag_task.getTask_id());
             preparedStatement.setInt(2, tag_task.getTag_id());
+
+            System.out.println(preparedStatement);
+            
+            result = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            // process sql exception
+            printSQLException(e);
+        }
+        return result;
+    }
+    
+    public int deleteTag_task(Tag_task tag_task) throws ClassNotFoundException
+    {
+        String query = "DELETE FROM tag_task" +
+            " WHERE tag_id = ?;";
+
+        int result = 0;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection connection = DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/bewaretaskasp?useSSL=false", "root", "");
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, tag_task.getTag_id());
 
             System.out.println(preparedStatement);
             

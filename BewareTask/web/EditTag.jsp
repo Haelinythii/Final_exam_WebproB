@@ -29,11 +29,11 @@
             SELECT * FROM tag where idUser = <%=session.getAttribute("userID")%>;
         </sql:query>
         <sql:query var="ConfirmedTagList" dataSource="${bewaretaskasp}">
-            SELECT distinct * FROM tag_task where task_id = <%=session.getAttribute("EditedTasktag")%> or task_id = <%=request.getParameter("taskid")%>;
+            SELECT distinct tt.task_id, tt.tag_id, t.TagName FROM tag_task tt, tag t where tt.tag_id = t.id and (task_id = <%=session.getAttribute("EditedTasktag")%> or task_id = <%=request.getParameter("taskid")%>);
         </sql:query>
        
         <%--ini pop up window harusnya?--%>
-         <div class="container my-5">
+        <div class="container my-5">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title" id="loginTitle">
@@ -42,12 +42,12 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <form action="<%=request.getContextPath()%>/AddTaskServlet" method="post">
+                        <form action="<%=request.getContextPath()%>/AddTaskTagServlet" method="post">
                             <h5 class="mt-3">Available Tag(s) list:</h5>
                             <% if(request.getParameter("taskid") == null) { %>
-                            <input type="text"  name="taskid" value="<%=session.getAttribute("EditedTasktag")%>">
+                            <input type="text" hidden name="taskid" value="<%=session.getAttribute("EditedTasktag")%>">
                             <% } else { %>
-                            <input type="text"  name="taskid" value="<%=request.getParameter("taskid")%>">
+                            <input type="text" hidden name="taskid" value="<%=request.getParameter("taskid")%>">
                             <% } %>
                             <select name="tag">
                                 <c:forEach var="data" items="${TagList.rows}">
@@ -56,6 +56,35 @@
 
                             </select>
                             <button class="btn btn-primary">Add Tag</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+                            
+        <div class="container my-5">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title" id="loginTitle">
+                        <h3>Delete Tag</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <form action="<%=request.getContextPath()%>/DeleteTagServlet" method="post">
+                            <h5 class="mt-3">Available Tag(s) list:</h5>
+                            <% if(request.getParameter("taskid") == null) { %>
+                            <input type="text" hidden name="taskid" value="<%=session.getAttribute("EditedTasktag")%>">
+                            <% } else { %>
+                            <input type="text" hidden name="taskid" value="<%=request.getParameter("taskid")%>">
+                            <% } %>
+                            <select name="tag">
+                                <c:forEach var="data" items="${TagList.rows}">
+                                    <option value="${data.id}"><c:out value="${data.TagName}" /></option>
+                                </c:forEach>
+
+                            </select>
+                            <button class="btn btn-primary">Delete Tag</button>
                         </form>
                     </div>
                 </div>
@@ -72,7 +101,13 @@
                 <% int counter = 1;%>
                 <c:forEach var="data" items="${ConfirmedTagList.rows}">
                 <tr>
-                    <td><%=counter%>. <c:out value="${data.tag_id}" /></td>
+                    <td><%=counter%>. <c:out value="${data.TagName}" /></td>
+                    <td>
+                        <form action="<%=request.getContextPath()%>/DeleteTaskTagServlet" method="post">
+                            <input type="text" name="tagid"  value="${data.tag_id}" />
+                            <input type="submit" name="submit" class="btn btn-success mt-3" id="btnLogin" value="delete tag" />
+                        </form>
+                    </td>
                 </tr>
                 <%counter++;%>
                 </c:forEach>

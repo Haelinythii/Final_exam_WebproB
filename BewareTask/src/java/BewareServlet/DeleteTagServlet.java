@@ -5,7 +5,6 @@
  */
 package BewareServlet;
 
-import BewareBean.Tag;
 import BewareBean.Tag_task;
 import BewareDatabase.TagDao;
 import java.io.IOException;
@@ -19,17 +18,16 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Ignatius Dwiki I
+ * @author Mystery-PC
  */
-@WebServlet(name = "AddTaskServlet", urlPatterns = {"/AddTaskServlet"})
-public class AddTaskServlet extends HttpServlet {
-    
-    private TagDao tagDao;
+@WebServlet(name = "DeleteTagServlet", urlPatterns = {"/DeleteTagServlet"})
+public class DeleteTagServlet extends HttpServlet{
 
-    public void init() {
+    private TagDao tagDao = new TagDao();
+    public void init() throws ServletException {
         tagDao = new TagDao();
     }
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,42 +45,24 @@ public class AddTaskServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddTaskServlet</title>");            
+            out.println("<title>Servlet TaskServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddTaskServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TaskServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         
         int tagID = Integer.parseInt(request.getParameter("tag"));
@@ -95,7 +75,7 @@ public class AddTaskServlet extends HttpServlet {
         session.setAttribute("EditedTasktag", taskID);
 
         try {
-            tagDao.addTag_task(tag_task);
+            tagDao.deleteTag(tag_task);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -106,15 +86,6 @@ public class AddTaskServlet extends HttpServlet {
         
         processRequest(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
+    
 }

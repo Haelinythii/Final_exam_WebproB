@@ -119,12 +119,22 @@
                 </thead>
                 <tbody>
                     <% int counter = 1;%>
+                    <% int lineid = 0;%>
                     <c:forEach var="data" items="${taskList.rows}">
                     <tr>
                         <td><%=counter%></td>
-                        <td><c:out value="${data.TaskName}" /></td>
+                        <td><c:out value="${data.TaskName}" />
+                        </td>
                         <td><c:out value="${data.deadline == null ? '-' : data.deadline}" /></td>
-                        <<td></td>
+                        <td>
+                            <sql:query var="tagVar" dataSource="${bewaretaskasp}">
+                                SELECT tg.TagName FROM tag tg, tag_task tt, task ta WHERE ta.id = ${data.id} and tg.id = tt.tag_id and tt.task_id = ta.id;
+                            </sql:query>
+                            <c:forEach var="data2" items="${tagVar.rows}">
+                                <c:out value="${data2.TagName == null ? '' : data2.TagName}" />
+                                <c:out value=" | " />
+                            </c:forEach>
+                        </td>
                         <td>
                             <form action="<%=request.getContextPath()%>/EditTag.jsp" method="post">
                                 <input type="text" hidden name="taskid" value="${data.id}" />
