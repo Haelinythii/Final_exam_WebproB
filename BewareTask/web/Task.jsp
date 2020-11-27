@@ -80,6 +80,7 @@
         <% } %>
         <%
             String uid = request.getParameter("user");
+            session.removeAttribute("EditedTasktag");
         %>
         <sql:setDataSource
             var="bewaretaskasp"
