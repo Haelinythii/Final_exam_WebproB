@@ -156,10 +156,10 @@
                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
                    <ul class="navbar-nav">
                      <li class="nav-item active">
-                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                       <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                      </li>
                      <li class="nav-item">
-                       <a class="nav-link" href="#">Task</a>
+                       <a class="nav-link" href="Task.jsp">Task</a>
                      </li>
                      <li class="nav-item dropdown">
                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

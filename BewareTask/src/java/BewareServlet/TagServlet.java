@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Mystery-PC
  */
-@WebServlet("/add_tag")
+@WebServlet("/addnewtag")
 public class TagServlet extends HttpServlet {
     private TagDao tagDao;
 
@@ -45,6 +45,6 @@ public class TagServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("Login.jsp");
+        response.sendRedirect("Tag.jsp");
     }
 }

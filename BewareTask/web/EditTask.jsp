@@ -12,6 +12,26 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
+       
+        <%--ini pop up window harusnya?--%>
+         <div class="container my-5">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title" id="loginTitle">
+                        <h3>Add New Tag</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <form action="<%=request.getContextPath()%>/addnewtag" method="post">
+                            <h3>New Tag's Name </h3>
+                            <input type="text" name="tagname" /><br>
+                            <input type="submit" name="submit" class="btn btn-success mt-3" id="btnLogin" value="New Tag" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

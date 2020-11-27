@@ -65,7 +65,7 @@
                         <td><%=counter%></td>
                         <td><c:out value="${data.TaskName}" /></td>
                         <td><c:out value="${data.deadline == null ? '-' : data.deadline}" /></td>
-                        <td><a href="#EditTask" class="btn btn-primary">Edit</a><a href="#DeleteTask" class="btn btn-primary ml-1">Delete</a></td>
+                        <td><a href="EditTask.jsp" class="btn btn-primary">Edit</a><a href="#DeleteTask" class="btn btn-primary ml-1">Delete</a></td>
                     </tr>
                     <%counter++;%>
                     </c:forEach>
