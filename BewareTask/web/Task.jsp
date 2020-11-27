@@ -10,8 +10,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Task</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <style>
+            #del:hover{
+                background-color : red;
+            }
+        </style>
     </head>
     <body>
         <% if ( session.getAttribute("username")==null) {
@@ -106,7 +111,7 @@
         </div>
         
         <div class="container">
-            <h1>Your Task List</h1>
+            <h1>Your Tasks List</h1>
             <table class="table table-bordered">
                 <thead style="background-color:#ff8559">
                     <tr>
@@ -124,20 +129,28 @@
                         <td><%=counter%></td>
                         <td><c:out value="${data.TaskName}" /></td>
                         <td><c:out value="${data.deadline == null ? '-' : data.deadline}" /></td>
-                        <<td></td>
+                        <td></td>
                         <td>
-                            <form action="<%=request.getContextPath()%>/EditTag.jsp" method="post">
-                                <input type="text" hidden name="taskid" value="${data.id}" />
-                                <input type="submit" value="Add Tag"/>
-                            </form>
-                            <form action="<%=request.getContextPath()%>/EditTask.jsp" method="post">
-                                <input type="text" name="taskid" hidden value="${data.id}" />
-                                <input type="submit" value="Edit"/>
-                            </form>
-                            <form action="<%=request.getContextPath()%>/DeleteTaskServlet" method="post">
-                                <input type="text" name="taskid" hidden value="${data.id}" />
-                                <input type="submit" value="Delete"/>
-                            </form>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <form action="<%=request.getContextPath()%>/EditTag.jsp" method="post">
+                                        <input type="text" hidden name="taskid" value="${data.id}" />
+                                        <input class="dropdown-item" type="submit" value="Add Tag"/>
+                                    </form>
+                                    <form action="<%=request.getContextPath()%>/EditTask.jsp" method="post">
+                                        <input type="text" name="taskid" hidden value="${data.id}" />
+                                        <input class="dropdown-item" type="submit" value="Edit"/>
+                                    </form>
+                                    <form action="<%=request.getContextPath()%>/DeleteTaskServlet" method="post">
+                                        <input type="text" name="taskid" hidden value="${data.id}" />
+                                        <input id="del" class="dropdown-item" type="submit" value="Delete"/>
+                                    </form>
+                                    </div>
+                            </div>
+                            
                         </td>
                     </tr>
                     <%counter++;%>
