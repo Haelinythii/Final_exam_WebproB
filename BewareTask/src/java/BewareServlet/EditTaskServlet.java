@@ -9,6 +9,7 @@ import BewareBean.Task;
 import BewareDatabase.TaskDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,16 +66,22 @@ public class EditTaskServlet extends HttpServlet{
         
         HttpSession session = request.getSession();
         
-        String taskName = request.getParameter("taskname");
+        String taskName = request.getParameter("editedTaskName");
+        int taskID = Integer.parseInt(request.getParameter("taskid"));
+        Date deadlineTask = Date.valueOf(request.getParameter("deadline"));
+        
+        
         Task task = new Task();
         task.setTaskName(taskName);
+        task.setId(taskID);
+        task.setDeadline(deadlineTask);
         
         int uid = (int)session.getAttribute("userID");
         
         task.setIdUser(uid);
 
         try {
-            taskDao.addTask(task);
+            taskDao.editTask(task);
         } 
         catch (Exception e) {
             e.printStackTrace();

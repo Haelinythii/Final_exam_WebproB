@@ -65,10 +65,13 @@ public class DeleteTaskServlet extends HttpServlet{
         
         HttpSession session = request.getSession();
         
+        int taskID = Integer.parseInt(request.getParameter("taskid"));
+        
         Task task = new Task();
+        task.setId(taskID);
 
         try {
-            taskDao.addTask(task);
+            taskDao.deleteTask(task);
         } 
         catch (Exception e) {
             e.printStackTrace();

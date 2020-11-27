@@ -48,7 +48,7 @@ public class TaskDao {
     
     public int editTask(Task task) throws ClassNotFoundException{
         String query = "UPDATE task" +
-            "  SET TaskName = ?" +
+            "  SET TaskName = ?, deadline = ?" +
             " WHERE id = ?;";
 
         int result = 0;
@@ -59,8 +59,9 @@ public class TaskDao {
             .getConnection("jdbc:mysql://localhost:3306/bewaretaskasp?useSSL=false", "root", "");
 
             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, task.getId());
-            preparedStatement.setString(2, task.getTaskName());
+            preparedStatement.setString(1, task.getTaskName());
+            preparedStatement.setDate(2, task.getDeadline());
+            preparedStatement.setInt(3, task.getId());
 
             System.out.println(preparedStatement);
             
