@@ -46,6 +46,56 @@ public class TaskDao {
         return result;
     }
     
+    public int editTask(Task task) throws ClassNotFoundException{
+        String query = "UPDATE task" +
+            "  SET TaskName = ?" +
+            " WHERE id = ?;";
+
+        int result = 0;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection connection = DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/bewaretaskasp?useSSL=false", "root", "");
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, task.getId());
+            preparedStatement.setString(2, task.getTaskName());
+
+            System.out.println(preparedStatement);
+            
+            result = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
+    
+    public int deleteTask(Task task) throws ClassNotFoundException{
+        String query = "DELETE FROM task" +
+            " WHERE id = ?;";
+
+        int result = 0;
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        try (Connection connection = DriverManager
+            .getConnection("jdbc:mysql://localhost:3306/bewaretaskasp?useSSL=false", "root", "");
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, task.getId());
+
+            System.out.println(preparedStatement);
+            
+            result = preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return result;
+    }
+    
     private void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {
