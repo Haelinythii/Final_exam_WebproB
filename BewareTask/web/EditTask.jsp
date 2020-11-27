@@ -13,6 +13,11 @@
         <title>Edit Task</title>
     </head>
     <body>
+        <% if ( session.getAttribute("username")==null) {
+                response.sendRedirect("Login.jsp");
+            }
+        %>
+        
         <sql:setDataSource
             var="bewaretaskasp"
             driver="com.mysql.cj.jdbc.Driver"
