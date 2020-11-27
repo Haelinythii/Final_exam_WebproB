@@ -134,16 +134,19 @@
                    <span class="navbar-toggler-icon"></span>
                  </button>
                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                   <ul class="navbar-nav">
+                   <ul class="nav navbar-nav navbar-left" style = "margin-left: 50px">
                      <li class="nav-item active">
                        <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                      </li>
-                     <li class="nav-item">
-                       <a class="nav-link" href="Login.jsp">Login</a>
-                     </li>
-                     <li class="nav-item">
-                       <a class="nav-link" href="Register.jsp">Register</a>
-                    
+                     
+                   </ul>
+                     <ul class="nav navbar-nav navbar-right" style="margin-left: 1000px">
+                         <li class="nav-item ">
+                            <a class="nav-link" href="Login.jsp">Login</a>
+                         </li>
+                         <li class="nav-item ">
+                            <a class="nav-link" href="Register.jsp">Register</a>
+                          </li>
                    </ul>
                  </div>
                </nav>
@@ -154,23 +157,24 @@
                    <span class="navbar-toggler-icon"></span>
                  </button>
                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                   <ul class="navbar-nav">
+                   <ul class="nav navbar-nav navbar-left" style = "margin-left: 50px">
                      <li class="nav-item active">
                        <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                      </li>
                      <li class="nav-item">
                        <a class="nav-link" href="Task.jsp">Task</a>
                      </li>
-                     <li class="nav-item dropdown">
-                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         User
-                       </a>
-                       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                         <a class="dropdown-item" href="#">Profile</a>
-                         <a class="dropdown-item" href="#">Logout</a>
-                       
-                       </div>
-                     </li>
+                   </ul>
+                   <ul class="nav navbar-nav navbar-right" style="margin-left: 1000px">
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              User
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <a class="dropdown-item" href="#">Profile</a>
+                              <a class="dropdown-item" href="#">Logout</a>
+                            </div>
+                       </li>
                    </ul>
                  </div>
                </nav>
@@ -183,7 +187,7 @@
         
         
         
-                <div class="container" style="        
+            <div class="container" style="        
                 height: 500px;
                 background-color: #ff8559;
                 border-radius: 10px;
@@ -196,10 +200,13 @@
                     </h2>
                     <div class="sub-heading" id="subheadingTitle">
                         <p>Beware Task! is a simple to-do list web for your task management</p>
-                        <p class="mb-5">
-                            
-                            
-                        </p>
+                        <% if ( session.getAttribute("username")==null) {%>
+                            <a class="btnActionLink" id="btnLogin" href="Login.jsp" style="background-color: #ffebe2">Login</a>
+                            <a class="btnActionLink" id="btnLogin"  href="Register.jsp" style="background-color: #ffebe2">Register</a>   
+                        <%  } else {
+                        %>
+                          <a class="btnActionLink" id="btnLogin" href="Task.jsp" style="background-color: #ffebe2">Add Task!</a>
+                        <%  } %>
                     </div>
                 </div>
 
