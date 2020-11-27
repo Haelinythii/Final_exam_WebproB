@@ -32,6 +32,8 @@ public class TagServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         
+        session.setAttribute("EditedTasktag", Integer.parseInt(request.getParameter("taskid")));
+        
         String tagName = request.getParameter("tagname");
         
         Tag tag = new Tag();

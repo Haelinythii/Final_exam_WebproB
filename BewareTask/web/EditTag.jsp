@@ -106,9 +106,9 @@
                                     <form action="<%=request.getContextPath()%>/AddTaskTagServlet" method="post">
                                         <h5 class="mt-3">Available Tag(s) list:</h5>
                                         <% if(request.getParameter("taskid") == null) { %>
-                                        <input type="text" hidden name="taskid" value="<%=session.getAttribute("EditedTasktag")%>">
+                                        <input type="text"  name="taskid" value="<%=session.getAttribute("EditedTasktag")%>">
                                         <% } else { %>
-                                        <input type="text" hidden name="taskid" value="<%=request.getParameter("taskid")%>">
+                                        <input type="text"  name="taskid" value="<%=request.getParameter("taskid")%>">
                                         <% } %>
                                         <select name="tag">
                                             <c:forEach var="data" items="${TagList.rows}">
@@ -200,6 +200,11 @@
                                 <h6>New Tag:</h6>
                                 <input type="text" class="form-control" name="tagname">
                             </div>
+                            <% if(request.getParameter("taskid") == null) { %>
+                            <input type="text" hidden name="taskid" value="<%=session.getAttribute("EditedTasktag")%>">
+                            <% } else { %>
+                            <input type="text" hidden name="taskid" value="<%=request.getParameter("taskid")%>">
+                            <% } %>
                             <button class="btn btn-primary mt-3">Add New Tag</button>
                         </form>
                     </div>
